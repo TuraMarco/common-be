@@ -24,13 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class JwtUtils {
-	@Value("${bezkoder.app.jwtSecret}")
+	@Value("${security.app.jwtSecret}")
 	private String jwtSecret;
 
-	@Value("${bezkoder.app.jwtExpirationMs}")
+	@Value("${security.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
 
-	@Value("${bezkoder.app.jwtCookieName}")
+	@Value("${security.app.jwtCookieName}")
 	private String jwtCookie;
 
 	public String getJwtFromCookies(HttpServletRequest request) {
@@ -61,6 +61,7 @@ public class JwtUtils {
 	}
 
 	private Key key() {
+		// TODO: rinforzare la chiave perchè debole
 		return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
 	}
 
